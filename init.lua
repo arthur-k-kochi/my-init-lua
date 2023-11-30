@@ -51,6 +51,14 @@ require("lazy").setup({
 		dependencies = { 'nvim-lua/plenary.nvim' },
 	},
   {
+    'NeogitOrg/neogit',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+    },
+    config = true,
+  },
+  {
     'neovim/nvim-lspconfig',
     tag = 'v0.1.3'
   },
@@ -62,6 +70,9 @@ require("lazy").setup({
   'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/vim-vsnip',
+  'hrsh7th/cmp-cmdline',
+	'hrsh7th/cmp-path',
+	'hrsh7th/cmp-buffer',
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = {
@@ -103,6 +114,57 @@ require("lazy").setup({
         vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
       )
     end
+  },
+  'lukas-reineke/indent-blankline.nvim',
+  {
+    'MunifTanjim/nui.nvim'
+  },
+  {
+    'rcarriga/nvim-notify'
+  },
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify',
+    }
+  }
+})
+
+require('neogit').setup({
+  disable_hint = false,
+  disable_context_highlighting = false,
+  disable_signs = false,
+  disable_commit_confirmation = false,
+  disable_insert_on_commit =true,
+  filewatcher = { interval = 1000, enabled = true },
+  graph_style = 'ascii',
+})
+
+require('noice').setup({
+  lsp = {
+    override = {
+      ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+      ['vim.lsp.uitl.stylize_markdown'] = true,
+      ['cmp.entry.get_dcumentation'] = true,
+    }
+  },
+  presets = {
+    bottom_search = true,
+    command_palette = true,
+    long_message_to_split = true,
+    inc_rename = false,
+    lsp_doc_border = false,
+  }
+})
+
+require('tokyonight').setup({
+  style = 'night',
+  transparent = true,
+  styles = {
+    comments = { italic = true },
+    keywords = { italic = true },
   }
 })
 
@@ -131,6 +193,8 @@ cmp.setup({
   },
   sources = {
     { name = 'nvim_lsp' },
+    { name = 'buffer' },
+    { name = 'path' },
   },
   mapping = cmp.mapping.preset.insert({
     ["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -140,16 +204,42 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm { select = true },
   })
 })
+cmp.setup.cmdline('/', {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = {
+		{ name = 'buffer' }
+	}
+})
+cmp.setup.cmdline(':', {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = {
+		{ name = 'path' },
+		{name = 'cmdline'},
+	}
+})
 
 -- set termguicolors to enable highlight groups
-vim.opt.termguicolors = true
+-- vim.opt.termguicolors = true
 
+local function my_on_attach(bufnr)
+  local api = require('nvim-tree.api')
+
+  local function opts(desc)
+    return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  api.config.mappings.default_on_attach(bufnr)
+
+  vim.keymap.set('n', 'i', api.node.open.horizontal, opts('Open: Horizontal Split'))
+  vim.keymap.set('n', 's', api.node.open.vertical, opts('Open: Vertical Split'))
+end
 require("nvim-tree").setup({
+  on_attach = my_on_attach,
   sort = {
     sorter = "case_sensitive",
   },
   view = {
-    width = 20
+    width = 30
   },
   renderer = {
     group_empty = true,
@@ -167,7 +257,7 @@ require("nvim-tree").setup({
 })
 
 vim.cmd([[
-    colorscheme tokyonight-night
+    colorscheme tokyonight-storm
 ]])
 
 vim.opt.termguicolors = true
@@ -250,3 +340,5 @@ vim.keymap.set('n', 'ff', builtin.find_files, {})
 vim.keymap.set('n', 'fg', builtin.live_grep, {})
 vim.keymap.set('n', 'fb', builtin.buffers, {})
 vim.keymap.set('n', 'fh', builtin.help_tags, {})
+
+--require('ibl').setup()
