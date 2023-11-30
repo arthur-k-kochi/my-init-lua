@@ -278,7 +278,7 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.softtabstop = 2
     end
 })
-vim.opt.smartindent = true
+-- vim.opt.smartindent = true
 vim.opt.hidden = true
 vim.opt.cursorline = true
 vim.opt.cursorcolumn = true
@@ -296,11 +296,17 @@ vim.api.nvim_set_keymap('i', '()', '()', { noremap = true })
 vim.api.nvim_set_keymap('i', '"', '""<Left>', { noremap = true })
 vim.api.nvim_set_keymap('i', '""', '""', { noremap = true })
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = {"python", "lua"},
-    callback = function()
-        vim.api.nvim_set_keymap('i', "'", "''<Left>", { noremap = true })
-        vim.api.nvim_set_keymap('i', "''", "''", { noremap = true })
-    end
+  pattern = {"python", "lua"},
+  callback = function()
+    vim.api.nvim_set_keymap('i', "'", "''<Left>", { noremap = true })
+    vim.api.nvim_set_keymap('i', "''", "''", { noremap = true })
+  end
+})
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {"python"},
+  callback = function()
+    vim.api.nvim_set_keymap('i', '"<Return>', '""""""<Left><Left><Left><CR><ESC><S-o>', { noremap = true })
+  end
 })
 
 -- タブ操作
