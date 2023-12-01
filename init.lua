@@ -51,12 +51,26 @@ require("lazy").setup({
 		dependencies = { 'nvim-lua/plenary.nvim' },
 	},
   {
+    'sindrets/diffview.nvim',
+  },
+  {
     'NeogitOrg/neogit',
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope.nvim',
+      'sindrets/diffview.nvim'
     },
-    config = true,
+    config = function()
+      require('neogit').setup({
+        kind = 'vsplit',
+        signs = {
+          section = { " ", " " },
+          item = { " ", " " },
+          hunk = { "", "" },
+        },
+        integrations = { diffview = true },
+      })
+    end,
   },
   {
     'neovim/nvim-lspconfig',
@@ -131,6 +145,8 @@ require("lazy").setup({
     }
   }
 })
+
+require('diffview').setup()
 
 require('neogit').setup({
   disable_hint = false,
@@ -322,6 +338,7 @@ vim.api.nvim_set_keymap('n', 'ts', '<C-w>v', { noremap = true })
 
 vim.api.nvim_set_keymap('n', 'tr', ':ToggleTerm<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'ftr', ':ToggleTerm direction=float<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', 'gg', ':Neogit<CR>', { noremap = true })
 
 -- ウィンドウのナビゲーション
 -- vim.api.nvim_set_keymap('n', 'vi', '<C-w>', { noremap = true })
