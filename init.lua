@@ -301,6 +301,9 @@ vim.opt.cursorcolumn = true
 vim.opt.virtualedit = "onemore"
 vim.opt.wildmenu = true
 
+vim.api.nvim_set_keymap('n', 'J', '<C-d>', {noremap = true})
+vim.api.nvim_set_keymap('n', 'K', '<C-u>', {noremap = true})
+
 vim.api.nvim_set_keymap('i', 'jj', '<esc>', {noremap = true})
 vim.api.nvim_set_keymap('i', '{', '{}<Left>', { noremap = true })
 vim.api.nvim_set_keymap('i', '{}', '{}', { noremap = true })
