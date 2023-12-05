@@ -26,6 +26,13 @@ require("lazy").setup({
     end
   },
   {
+    "kdheepak/tabline.nvim",
+    config = function()
+      require('tabline').setup({enable = false})
+    end,
+    requires = { 'nvim-lualine/lualine.nvim', 'nvim-tree/nvim-web-devicons' }
+  },
+  {
     'lewis6991/gitsigns.nvim',
     config = function()
       require('gitsigns').setup()
@@ -38,6 +45,14 @@ require("lazy").setup({
     },
     config = function()
       require('nvim-tree').setup()
+    end
+  },
+  {
+    "echasnovski/mini.indentscope",
+    config = function()
+      require('mini.indentscope').setup({
+        symbol = "▏"
+      })
     end
   },
   {
@@ -189,6 +204,15 @@ require('lualine').setup {
     -- ... your lualine config
     theme = 'tokyonight'
     -- ... your lualine config
+    
+  },
+  tabline = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { require('tabline').tabline_buffers },
+    lualine_x = { require('tabline').tabline_tabs },
+    lualine_y = {},
+    lualine_z = {}
   }
 }
 
