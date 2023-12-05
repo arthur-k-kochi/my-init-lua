@@ -363,8 +363,8 @@ vim.api.nvim_set_keymap('n', 'tt', ':NvimTreeToggle<CR>', { noremap = true, sile
 vim.api.nvim_set_keymap('n', 'ti', '<C-w>s', { noremap = true })
 vim.api.nvim_set_keymap('n', 'ts', '<C-w>v', { noremap = true })
 
-vim.api.nvim_set_keymap('n', 'tr', ':ToggleTerm<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', 'ftr', ':ToggleTerm direction=float<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', 'tr', ':ToggleTerm<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'ftr', ':ToggleTerm direction=float<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'gg', ':Neogit<CR>', { noremap = true })
 
 -- ウィンドウのナビゲーション
