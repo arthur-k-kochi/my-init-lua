@@ -14,6 +14,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
+    'ellisonleao/gruvbox.nvim',
+  },
+  {
     "folke/tokyonight.nvim",
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
@@ -162,6 +165,17 @@ require("lazy").setup({
       'MunifTanjim/nui.nvim',
       'rcarriga/nvim-notify',
     }
+  },
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    config = function()
+      require('nvim-treesitter.configs').setup({
+        ensure_installed = { 'c', 'lua', 'vim', 'python', 'json', 'yaml', 'markdown', 'toml', 'dockerfile' },
+        sync_install = true,
+        highlight = { enable = true }
+      })
+    end
   }
 })
 
@@ -186,8 +200,8 @@ require('noice').setup({
     }
   },
   presets = {
-    bottom_search = true,
-    command_palette = true,
+    bottom_search = false,
+    command_palette = false,
     long_message_to_split = true,
     inc_rename = false,
     lsp_doc_border = false,
@@ -203,10 +217,15 @@ require('tokyonight').setup({
   }
 })
 
+require('gruvbox').setup({
+  italic = { keywords = true },
+})
+
 require('lualine').setup {
   options = {
     -- ... your lualine config
-    theme = 'tokyonight'
+    -- theme = 'tokyonight'
+    theme = 'gruvbox'
     -- ... your lualine config
     
   },
@@ -301,7 +320,7 @@ require("nvim-tree").setup({
 })
 
 vim.cmd([[
-    colorscheme tokyonight-storm
+  colorscheme gruvbox
 ]])
 
 vim.opt.termguicolors = true
