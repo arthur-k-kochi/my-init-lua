@@ -14,6 +14,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
+    'lambdalisue/nerdfont.vim',
+  },
+  {
     'ellisonleao/gruvbox.nvim',
   },
   {
@@ -176,6 +179,37 @@ require("lazy").setup({
         highlight = { enable = true }
       })
     end
+  },
+  {
+    'kkharji/lspsaga.nvim',
+    config = function()
+      require('lspsaga').setup()
+    end
+  },
+  {
+    'folke/lsp-colors.nvim',
+    config = function()
+      require("lsp-colors").setup({
+        Error = "#db4b4b",
+        Warning = "#e0af68",
+        Information = "#0db9d7",
+        Hint = "#10B981"
+      })
+    end
+  },
+  {
+    'folke/trouble.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+  },
+  {
+    'numToStr/Comment.nvim',
+    lazy=false,
+    config = function()
+      require('Comment').setup()
+    end
+  },
+  {
+    'machakann/vim-sandwich',
   }
 })
 
@@ -415,3 +449,6 @@ vim.keymap.set('n', 'fb', builtin.buffers, {})
 vim.keymap.set('n', 'fh', builtin.help_tags, {})
 
 --require('ibl').setup()
+
+vim.opt.number = true
+vim.o.fillchars = "vert: " 
