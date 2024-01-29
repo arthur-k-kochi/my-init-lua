@@ -1,3 +1,6 @@
+-- Current: tokyonight or gruvbox
+colorscheme_var = 'gruvbox'
+
 -- Setup lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -210,6 +213,12 @@ require("lazy").setup({
   },
   {
     'machakann/vim-sandwich',
+  },
+  {
+    'yamatsum/nvim-cursorline',
+    config = function()
+      require('nvim-cursorline').setup()
+    end
   }
 })
 
@@ -258,8 +267,7 @@ require('gruvbox').setup({
 require('lualine').setup {
   options = {
     -- ... your lualine config
-    -- theme = 'tokyonight'
-    theme = 'gruvbox'
+    theme = colorscheme_var
     -- ... your lualine config
     
   },
@@ -353,9 +361,7 @@ require("nvim-tree").setup({
   },
 })
 
-vim.cmd([[
-  colorscheme gruvbox
-]])
+vim.cmd("colorscheme " .. colorscheme_var)
 
 vim.opt.termguicolors = true
 
