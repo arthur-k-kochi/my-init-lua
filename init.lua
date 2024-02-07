@@ -1,5 +1,5 @@
--- Current: tokyonight or gruvbox
-colorscheme_var = 'gruvbox'
+-- Current: tokyonight, gruvbox, or catpuccin
+colorscheme_var = 'catppuccin'
 
 -- Setup lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -26,6 +26,10 @@ require("lazy").setup({
     "folke/tokyonight.nvim",
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
+  },
+  {
+    "catppuccin/nvim",
+    as = "catppuccin",
   },
   {
     "nvim-lualine/lualine.nvim",
@@ -263,6 +267,13 @@ require('tokyonight').setup({
   styles = {
     comments = { italic = true },
     keywords = { italic = true },
+  }
+})
+
+require('catppuccin').setup({
+  styles = {
+    comments = { "italic" },
+    conditionals = { "italic" },
   }
 })
 
