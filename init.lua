@@ -406,9 +406,13 @@ vim.opt.virtualedit = "onemore"
 vim.opt.wildmenu = true
 
 vim.api.nvim_set_keymap('n', 'J', '<C-d>', {noremap = true})
+vim.api.nvim_set_keymap('v', 'J', '<C-d>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'K', '<C-u>', {noremap = true})
+vim.api.nvim_set_keymap('v', 'K', '<C-u>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'L', '$', {noremap = true})
+vim.api.nvim_set_keymap('v', 'L', '$', {noremap = true})
 vim.api.nvim_set_keymap('n', 'H', '^', {noremap = true})
+vim.api.nvim_set_keymap('v', 'H', '^', {noremap = true})
 
 vim.api.nvim_set_keymap('i', 'jj', '<esc>', {noremap = true})
 vim.api.nvim_set_keymap('i', '{', '{}<Left>', { noremap = true })
