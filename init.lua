@@ -1,4 +1,4 @@
--- Current: tokyonight, gruvbox, or catpuccin
+-- Current: tokyonight, gruvbox, catppuccin, or nightfly
 colorscheme_var = 'catppuccin'
 
 -- Setup lazy
@@ -30,6 +30,10 @@ require("lazy").setup({
   {
     "catppuccin/nvim",
     as = "catppuccin",
+  },
+  {
+    "bluz71/vim-nightfly-colors",
+    name = "nightfly",
   },
   {
     "nvim-lualine/lualine.nvim",
@@ -451,7 +455,7 @@ vim.api.nvim_set_keymap('n', 'ts', '<C-w>v', { noremap = true })
 
 vim.api.nvim_set_keymap('n', 'tr', ':ToggleTerm<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'ftr', ':ToggleTerm direction=float<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'gg', ':Neogit<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', 'gg', ':Neogit<CR>', { noremap = true, silent=true })
 
 -- ウィンドウのナビゲーション
 -- vim.api.nvim_set_keymap('n', 'vi', '<C-w>', { noremap = true })
@@ -480,4 +484,3 @@ vim.keymap.set('n', 'fh', builtin.help_tags, {})
 --require('ibl').setup()
 
 vim.opt.number = true
-vim.o.fillchars = "vert: " 
