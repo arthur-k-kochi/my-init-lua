@@ -1,5 +1,5 @@
 -- Current: tokyonight, gruvbox, catppuccin, or nightfly
-colorscheme_var = 'catppuccin'
+colorscheme_var = 'gruvbox'
 
 -- Setup lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -141,6 +141,13 @@ require("lazy").setup({
         ["vtsls"] = function()
           lspconfig["vtsls"].setup({})
         end,
+      })
+      require('mason-lspconfig').setup({
+        ensure_installed = {
+          'jedi_language_server',
+          'lua_ls',
+        },
+        automatic_installation = true,
       })
 
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -300,6 +307,33 @@ require('lualine').setup {
     lualine_y = {},
     lualine_z = {}
   }
+}
+
+-- LSP server setups
+local lspconfig = require('lspconfig')
+
+local function get_poetry_venv()
+  local handle = io.popen('poetry env info -p 2>/dev/null')
+  local result = handle:read('*a')
+  local success, exit, code = handle:close()
+
+  if sucess and code == 0 then
+    return result:gsub('\n', '')
+  else
+    return nil
+  end
+end
+
+lspconfig.jedi_language_server.setup{
+  on_attach = function(client, bufnr)
+    local venv_path = get_poetry_venv()
+    if venv_path then
+      client.config.settings.python = {
+        pythonPath = venv_path .. '/bin/python',
+      }
+      client.notify('workspace/didChangeConfiguration', { settings = client.config.settings })
+    end
+  end,
 }
 
 -- disable netrw at the very start of your init.lua
