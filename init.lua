@@ -98,7 +98,7 @@ require("lazy").setup({
     },
     config = function()
       require('neogit').setup({
-        kind = 'vsplit',
+        commit_editor = { kind = "floating" },
         signs = {
           section = { " ", " " },
           item = { " ", " " },
