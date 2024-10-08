@@ -17,6 +17,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
+    'stevearc/dressing.nvim',
+  },
+  {
     'lambdalisue/nerdfont.vim',
   },
   {
@@ -245,6 +248,12 @@ require("lazy").setup({
 
 require('diffview').setup()
 
+require('telescope').setup({
+  defaults = {
+    borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+  },
+})
+
 require('neogit').setup({
   disable_hint = false,
   disable_context_highlighting = false,
@@ -346,6 +355,14 @@ vim.g.loaded_netrwPlugin = 1
 -- Setup cmp
 local cmp = require('cmp')
 cmp.setup({
+  window = {
+    completion = cmp.config.window.bordered({
+      border = 'single'
+    }),
+    documentation = cmp.config.window.bordered({
+      border = 'single'
+    }),
+  },
   snippet = {
     expand = function(args)
       vim.fn['vsnip#anonymous'](args.body)
@@ -376,6 +393,16 @@ cmp.setup.cmdline(':', {
 		{ name = 'path' },
 		{name = 'cmdline'},
 	}
+})
+
+local dressing = require('dressing')
+dressing.setup({
+  input = {
+    border = 'single',
+  },
+  builtin = {
+    border = 'single',
+  },
 })
 
 -- set termguicolors to enable highlight groups
