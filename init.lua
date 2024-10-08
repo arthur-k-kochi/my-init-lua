@@ -248,12 +248,6 @@ require("lazy").setup({
 
 require('diffview').setup()
 
-require('telescope').setup({
-  defaults = {
-    borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
-  },
-})
-
 require('neogit').setup({
   disable_hint = false,
   disable_context_highlighting = false,
