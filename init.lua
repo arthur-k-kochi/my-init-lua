@@ -17,9 +17,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
-    'stevearc/dressing.nvim',
-  },
-  {
     'lambdalisue/nerdfont.vim',
   },
   {
@@ -349,14 +346,6 @@ vim.g.loaded_netrwPlugin = 1
 -- Setup cmp
 local cmp = require('cmp')
 cmp.setup({
-  window = {
-    completion = cmp.config.window.bordered({
-      border = 'single'
-    }),
-    documentation = cmp.config.window.bordered({
-      border = 'single'
-    }),
-  },
   snippet = {
     expand = function(args)
       vim.fn['vsnip#anonymous'](args.body)
@@ -389,18 +378,9 @@ cmp.setup.cmdline(':', {
 	}
 })
 
-local dressing = require('dressing')
-dressing.setup({
-  input = {
-    border = 'single',
-  },
-  builtin = {
-    border = 'single',
-  },
-})
-
 -- set termguicolors to enable highlight groups
--- vim.opt.termguicolors = true
+vim.opt.termguicolors = true
+vim.opt.winblend = 50
 
 local function my_on_attach(bufnr)
   local api = require('nvim-tree.api')
