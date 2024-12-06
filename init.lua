@@ -1,5 +1,5 @@
--- Current: tokyonight, gruvbox, catppuccin, or nightfly
-colorscheme_var = 'gruvbox'
+-- Current: tokyonight, gruvbox, catppuccin, nightfly, onenord, or everforest
+colorscheme_var = 'everforest'
 
 -- Setup lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -34,6 +34,16 @@ require("lazy").setup({
   {
     "bluz71/vim-nightfly-colors",
     name = "nightfly",
+  },
+  {
+    "rmehri01/onenord.nvim",
+    as = "onenord",
+  },
+  {
+    "neanias/everforest-nvim",
+    version = false,
+    lazy = false,
+    priority = 1000,
   },
   {
     "nvim-lualine/lualine.nvim",
