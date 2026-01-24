@@ -120,7 +120,7 @@ require("lazy").setup({
   },
   {
     'neovim/nvim-lspconfig',
-    tag = 'v0.1.3'
+    -- tag = 'v0.1.3'
   },
   {
     "williamboman/mason.nvim",
@@ -140,6 +140,7 @@ require("lazy").setup({
       { "neovim/nvim-lspconfig" },
       { "echasnovski/mini.completion", version = false },
     },
+    tag = "v1.32.0",
     config = function()
       local lspconfig = require("lspconfig")
       --require('mini.completion').setup({})
@@ -157,6 +158,7 @@ require("lazy").setup({
           'jedi_language_server',
           'lua_ls',
         },
+        automatic_enable = true,
         automatic_installation = true,
       })
 
@@ -199,12 +201,24 @@ require("lazy").setup({
   },
   {
     'nvim-treesitter/nvim-treesitter',
+    -- In case Neovim 0.11.0 and later do not run on the system:
+    tag = 'v0.10.0',
     build = ':TSUpdate',
+    lazy = false, -- トラブルシューティングのため、遅延読み込みを無効化
+    priority = 1000, -- 優先的に読み込む
     config = function()
-      require('nvim-treesitter.configs').setup({
-        ensure_installed = { 'c', 'lua', 'vim', 'python', 'json', 'yaml', 'markdown', 'toml', 'dockerfile' },
-        sync_install = true,
-        highlight = { enable = true }
+      -- ここでエラーが出るなら、インストール自体が失敗しています
+      local status_ok, configs = pcall(require, "nvim-treesitter.configs")
+      if not status_ok then
+        vim.notify("Treesitterの読み込みに失敗しました", vim.log.levels.ERROR)
+        return
+      end
+
+      configs.setup({
+        ensure_installed = { "c", "lua", "vim", "python", "markdown" },
+        sync_install = false,
+        auto_install = true,
+        highlight = { enable = true },
       })
     end
   },
