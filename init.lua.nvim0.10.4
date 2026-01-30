@@ -1,5 +1,5 @@
--- Current: tokyonight, gruvbox, catppuccin, nightfly, onenord, or everforest
-colorscheme_var = 'everforest'
+-- Current: tokyonight, gruvbox, catppuccin, nightfly, onenord, material, nightfox, or everforest
+colorscheme_var = 'nightfox'
 
 -- Setup lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -18,6 +18,12 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   {
     'lambdalisue/nerdfont.vim',
+  },
+  {
+    'EdenEast/nightfox.nvim',
+  },
+  {
+    'marko-cerovac/material.nvim'
   },
   {
     'ellisonleao/gruvbox.nvim',
@@ -266,6 +272,8 @@ require("lazy").setup({
     end
   }
 })
+
+vim.g.material_style = 'darker'
 
 require('diffview').setup()
 
